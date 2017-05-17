@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>hiredis. redux 1.0.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">redux 1.0.0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Interface to Redis</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>hiredis(..., version&nbsp;=&nbsp;NULL)</div>
+<div>redis_available(...)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>...</dt>
+      <dd>Named configuration options passed to
+<code><a href='redis_config.html'>redis_config</a></code>, used to create the environment
+(notable keys include <code>host</code>, <code>port</code>, and the
+environment variable <code>REDIS_URL</code>).  For
+<code>redis_available</code>, arguments are passed through to
+<code>hiredis</code>.</dd>
+      <dt>version</dt>
+      <dd>Version of the interface to generate.  If given as
+a string ot numeric version, then only commands that exist up to
+that version will be included.  If given as <code>TRUE</code>, then we
+will query the Redis server (with <code>INFO</code>) and extract the
+version number that way.</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Create an interface to Redis, with a generated interface to all
+Redis commands.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'># Only run if a Redis server is running
+if (redux::redis_available()) {
+  r &lt;- redux::hiredis()
+  r$PING()
+  r$SET(&quot;foo&quot;, &quot;bar&quot;)
+  r$GET(&quot;foo&quot;)
+
+  # There are lots of methods here:
+  r
+}
+</div>
+<div class='output'>&lt;redis_api&gt;
+  Redis commands:
+    APPEND: function
+    AUTH: function
+    BGREWRITEAOF: function
+    BGSAVE: function
+    BITCOUNT: function
+    BITFIELD: function
+    BITOP: function
+    BITPOS: function
+    BLPOP: function
+    BRPOP: function
+    BRPOPLPUSH: function
+    CLIENT_GETNAME: function
+    CLIENT_KILL: function
+    CLIENT_LIST: function
+    CLIENT_PAUSE: function
+    CLIENT_REPLY: function
+    CLIENT_SETNAME: function
+    CLUSTER_ADDSLOTS: function
+    CLUSTER_COUNT_FAILURE_REPORTS: function
+    CLUSTER_COUNTKEYSINSLOT: function
+    CLUSTER_DELSLOTS: function
+    CLUSTER_FAILOVER: function
+    CLUSTER_FORGET: function
+    CLUSTER_GETKEYSINSLOT: function
+    CLUSTER_INFO: function
+    CLUSTER_KEYSLOT: function
+    CLUSTER_MEET: function
+    CLUSTER_NODES: function
+    CLUSTER_REPLICATE: function
+    CLUSTER_RESET: function
+    CLUSTER_SAVECONFIG: function
+    CLUSTER_SET_CONFIG_EPOCH: function
+    CLUSTER_SETSLOT: function
+    CLUSTER_SLAVES: function
+    CLUSTER_SLOTS: function
+    COMMAND: function
+    COMMAND_COUNT: function
+    COMMAND_GETKEYS: function
+    COMMAND_INFO: function
+    CONFIG_GET: function
+    CONFIG_RESETSTAT: function
+    CONFIG_REWRITE: function
+    CONFIG_SET: function
+    DBSIZE: function
+    DEBUG_OBJECT: function
+    DEBUG_SEGFAULT: function
+    DECR: function
+    DECRBY: function
+    DEL: function
+    DISCARD: function
+    DUMP: function
+    ECHO: function
+    EVAL: function
+    EVALSHA: function
+    EXEC: function
+    EXISTS: function
+    EXPIRE: function
+    EXPIREAT: function
+    FLUSHALL: function
+    FLUSHDB: function
+    GEOADD: function
+    GEODIST: function
+    GEOHASH: function
+    GEOPOS: function
+    GEORADIUS: function
+    GEORADIUSBYMEMBER: function
+    GET: function
+    GETBIT: function
+    GETRANGE: function
+    GETSET: function
+    HDEL: function
+    HEXISTS: function
+    HGET: function
+    HGETALL: function
+    HINCRBY: function
+    HINCRBYFLOAT: function
+    HKEYS: function
+    HLEN: function
+    HMGET: function
+    HMSET: function
+    HSCAN: function
+    HSET: function
+    HSETNX: function
+    HSTRLEN: function
+    HVALS: function
+    INCR: function
+    INCRBY: function
+    INCRBYFLOAT: function
+    INFO: function
+    KEYS: function
+    LASTSAVE: function
+    LINDEX: function
+    LINSERT: function
+    LLEN: function
+    LPOP: function
+    LPUSH: function
+    LPUSHX: function
+    LRANGE: function
+    LREM: function
+    LSET: function
+    LTRIM: function
+    MGET: function
+    MIGRATE: function
+    MONITOR: function
+    MOVE: function
+    MSET: function
+    MSETNX: function
+    MULTI: function
+    OBJECT: function
+    PERSIST: function
+    PEXPIRE: function
+    PEXPIREAT: function
+    PFADD: function
+    PFCOUNT: function
+    PFMERGE: function
+    PING: function
+    PSETEX: function
+    PSUBSCRIBE: function
+    PTTL: function
+    PUBLISH: function
+    PUBSUB: function
+    PUNSUBSCRIBE: function
+    QUIT: function
+    RANDOMKEY: function
+    READONLY: function
+    READWRITE: function
+    RENAME: function
+    RENAMENX: function
+    RESTORE: function
+    ROLE: function
+    RPOP: function
+    RPOPLPUSH: function
+    RPUSH: function
+    RPUSHX: function
+    SADD: function
+    SAVE: function
+    SCAN: function
+    SCARD: function
+    SCRIPT_DEBUG: function
+    SCRIPT_EXISTS: function
+    SCRIPT_FLUSH: function
+    SCRIPT_KILL: function
+    SCRIPT_LOAD: function
+    SDIFF: function
+    SDIFFSTORE: function
+    SELECT: function
+    SET: function
+    SETBIT: function
+    SETEX: function
+    SETNX: function
+    SETRANGE: function
+    SHUTDOWN: function
+    SINTER: function
+    SINTERSTORE: function
+    SISMEMBER: function
+    SLAVEOF: function
+    SLOWLOG: function
+    SMEMBERS: function
+    SMOVE: function
+    SORT: function
+    SPOP: function
+    SRANDMEMBER: function
+    SREM: function
+    SSCAN: function
+    STRLEN: function
+    SUBSCRIBE: function
+    SUNION: function
+    SUNIONSTORE: function
+    SYNC: function
+    TIME: function
+    TOUCH: function
+    TTL: function
+    TYPE: function
+    UNLINK: function
+    UNSUBSCRIBE: function
+    UNWATCH: function
+    WAIT: function
+    WATCH: function
+    ZADD: function
+    ZCARD: function
+    ZCOUNT: function
+    ZINCRBY: function
+    ZINTERSTORE: function
+    ZLEXCOUNT: function
+    ZRANGE: function
+    ZRANGEBYLEX: function
+    ZRANGEBYSCORE: function
+    ZRANK: function
+    ZREM: function
+    ZREMRANGEBYLEX: function
+    ZREMRANGEBYRANK: function
+    ZREMRANGEBYSCORE: function
+    ZREVRANGE: function
+    ZREVRANGEBYLEX: function
+    ZREVRANGEBYSCORE: function
+    ZREVRANK: function
+    ZSCAN: function
+    ZSCORE: function
+    ZUNIONSTORE: function
+  Other public methods:
+    clone: function
+    command: function
+    config: function
+    initialize: function
+    pipeline: function
+    reconnect: function
+    subscribe: function
+    type: function
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>hiredis</li><li>redis_available</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

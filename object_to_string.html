@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>object_to_string. redux 1.0.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">redux 1.0.0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Convert R objects to/from strings</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>object_to_string(obj)</div>
+<div>string_to_object(str)</div>
+<div>object_to_bin(obj, xdr&nbsp;=&nbsp;FALSE)</div>
+<div>bin_to_object(bin)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>obj</dt>
+      <dd>An R object to convert into a string</dd>
+      <dt>str</dt>
+      <dd>A string to convert into an R object</dd>
+      <dt>xdr</dt>
+      <dd>Use the big-endian representation?  Unlike,
+<code><a href='http://www.inside-r.org/r-doc/base/serialize'>serialize</a></code> this is disabled here by default as it
+is a bit faster (~ 20
+microsecond roundtrip for a serialization of 100 doubles)</dd>
+      <dt>bin</dt>
+      <dd>A binary vector to convert back to an R object</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Serialise/deserialise an R object into a string.  This is a very
+thin wrapper around the existing R functions
+<code><a href='http://www.inside-r.org/r-doc/base/serialize'>serialize</a></code> and <code><a href='http://www.inside-r.org/r-doc/base/rawConversion'>rawToChar</a></code>.  This is
+useful to encode arbitrary R objects as string to then save in
+Redis (which expects a string).</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>s &lt;- object_to_string(1:10)
+s
+</div>
+<div class='output'>[1] &quot;A\n2\n197379\n131840\n13\n10\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n&quot;
+</div>
+<div class='input'>string_to_object(s)
+</div>
+<div class='output'> [1]  1  2  3  4  5  6  7  8  9 10
+</div>
+<div class='input'>identical(string_to_object(s), 1:10)
+</div>
+<div class='output'>[1] TRUE
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>object_to_string</li><li>string_to_object</li><li>object_to_bin</li><li>bin_to_object</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

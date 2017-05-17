@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>scan_apply. redux 1.0.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">redux 1.0.0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Iterate over keys using SCAN</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>scan_apply(con, callback, pattern&nbsp;=&nbsp;NULL, ..., count&nbsp;=&nbsp;NULL, type&nbsp;=&nbsp;"SCAN", key&nbsp;=&nbsp;NULL)</div>
+<div>scan_del(con, pattern, count&nbsp;=&nbsp;NULL, type&nbsp;=&nbsp;"SCAN", key&nbsp;=&nbsp;NULL)</div>
+<div>scan_find(con, pattern, count&nbsp;=&nbsp;NULL, type&nbsp;=&nbsp;"SCAN", key&nbsp;=&nbsp;NULL)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>con</dt>
+      <dd>A <code>redis_api</code> object</dd>
+      <dt>callback</dt>
+      <dd>Function that takes a character vector of keys and
+does something useful to it.  <code>con$DEL</code> is one option here
+to delete keys that match a pattern.  Unlike R's *apply
+functions, callback is called for its side effects and its
+return values will be ignored.</dd>
+      <dt>pattern</dt>
+      <dd>Optional pattern to use.</dd>
+      <dt>...</dt>
+      <dd>additional arguments passed through to <code>callback</code>.
+Note that if used, <code>pattern</code> must be provided (at least as
+<code>NULL</code>).</dd>
+      <dt>count</dt>
+      <dd>Optional step size (default is Redis' default which
+is 10)</dd>
+      <dt>type</dt>
+      <dd>Type of SCAN to run.  Options are <code>"SCAN"</code> (the
+default), <code>"HSCAN"</code> (scan through keys of a hash),
+<code>"SSCAN"</code> (scan through elements of a set) and
+<code>"ZSCAN"</code> (scan though elements of a sorted set).  If
+<code>type</code> is not <code>"SCAN"</code>, then <code>key</code> must be
+provided.  HSCAN and ZSCAN currently do not work usefully.</dd>
+      <dt>key</dt>
+      <dd>Key to use when running a hash, set or sorted set scan.</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Support for iterating with <code>SCAN</code>.  Note that this will
+generalise soon to support collecting output, <code>SSCAN</code> and
+other variants, etc.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The functions <code>scan_del</code> and <code>scan_find</code> are example
+functions that delete and find all keys corresponding to a given
+pattern.</p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>scan_apply</li><li>scan_del</li><li>scan_find</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

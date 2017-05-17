@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>redis_info. redux 1.0.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">redux 1.0.0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Parse Redis INFO</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>redis_info(con)</div>
+<div>parse_info(x)</div>
+<div>redis_version(con)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>con</dt>
+      <dd>A Redis connection</dd>
+      <dt>x</dt>
+      <dd>character string</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Parse and return Redis <code>INFO</code> data.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>if (redux::redis_available()) {
+  r &lt;- redux::hiredis()
+
+  # Redis server version:
+  redux::redis_version(r)
+  # This is a &#39;numeric_version&#39; object so you can compute with it
+  # if you need to check for minimum versions
+  redux::redis_version(r) &gt;= numeric_version(&quot;2.1.1&quot;)
+
+  # Extensive information is given back by the server:
+  redux::redis_info(r)
+
+  # Which is just:
+  redux::parse_info(r$INFO())
+}
+</div>
+<div class='output'>$redis_version
+[1] ‘3.0.6’
+
+$redis_git_sha1
+[1] &quot;00000000&quot;
+
+$redis_git_dirty
+[1] &quot;0&quot;
+
+$redis_build_id
+[1] &quot;687a2a319020fa42&quot;
+
+$redis_mode
+[1] &quot;standalone&quot;
+
+$os
+[1] &quot;Linux 4.4.0-21-generic x86_64&quot;
+
+$arch_bits
+[1] &quot;64&quot;
+
+$multiplexing_api
+[1] &quot;epoll&quot;
+
+$gcc_version
+[1] &quot;5.3.1&quot;
+
+$process_id
+[1] &quot;25803&quot;
+
+$run_id
+[1] &quot;c3c28f9e0ad27333fe9c191a8e32a2426070ec4c&quot;
+
+$tcp_port
+[1] &quot;6379&quot;
+
+$uptime_in_seconds
+[1] &quot;19&quot;
+
+$uptime_in_days
+[1] &quot;0&quot;
+
+$hz
+[1] &quot;10&quot;
+
+$lru_clock
+[1] &quot;1861663&quot;
+
+$connected_clients
+[1] &quot;2&quot;
+
+$client_longest_output_list
+[1] &quot;0&quot;
+
+$client_biggest_input_buf
+[1] &quot;0&quot;
+
+$blocked_clients
+[1] &quot;0&quot;
+
+$used_memory
+[1] &quot;837384&quot;
+
+$used_memory_human
+[1] &quot;817.76K&quot;
+
+$used_memory_rss
+[1] &quot;6078464&quot;
+
+$used_memory_peak
+[1] &quot;837384&quot;
+
+$used_memory_peak_human
+[1] &quot;817.76K&quot;
+
+$used_memory_lua
+[1] &quot;43008&quot;
+
+$mem_fragmentation_ratio
+[1] &quot;7.26&quot;
+
+$mem_allocator
+[1] &quot;jemalloc-3.6.0&quot;
+
+$loading
+[1] &quot;0&quot;
+
+$rdb_changes_since_last_save
+[1] &quot;48&quot;
+
+$rdb_bgsave_in_progress
+[1] &quot;0&quot;
+
+$rdb_last_save_time
+[1] &quot;1495033868&quot;
+
+$rdb_last_bgsave_status
+[1] &quot;ok&quot;
+
+$rdb_last_bgsave_time_sec
+[1] &quot;-1&quot;
+
+$rdb_current_bgsave_time_sec
+[1] &quot;-1&quot;
+
+$aof_enabled
+[1] &quot;0&quot;
+
+$aof_rewrite_in_progress
+[1] &quot;0&quot;
+
+$aof_rewrite_scheduled
+[1] &quot;0&quot;
+
+$aof_last_rewrite_time_sec
+[1] &quot;-1&quot;
+
+$aof_current_rewrite_time_sec
+[1] &quot;-1&quot;
+
+$aof_last_bgrewrite_status
+[1] &quot;ok&quot;
+
+$aof_last_write_status
+[1] &quot;ok&quot;
+
+$total_connections_received
+[1] &quot;12&quot;
+
+$total_commands_processed
+[1] &quot;101&quot;
+
+$instantaneous_ops_per_sec
+[1] &quot;8&quot;
+
+$total_net_input_bytes
+[1] &quot;4476&quot;
+
+$total_net_output_bytes
+[1] &quot;10067&quot;
+
+$instantaneous_input_kbps
+[1] &quot;0.38&quot;
+
+$instantaneous_output_kbps
+[1] &quot;1.35&quot;
+
+$rejected_connections
+[1] &quot;0&quot;
+
+$sync_full
+[1] &quot;0&quot;
+
+$sync_partial_ok
+[1] &quot;0&quot;
+
+$sync_partial_err
+[1] &quot;0&quot;
+
+$expired_keys
+[1] &quot;0&quot;
+
+$evicted_keys
+[1] &quot;0&quot;
+
+$keyspace_hits
+[1] &quot;29&quot;
+
+$keyspace_misses
+[1] &quot;0&quot;
+
+$pubsub_channels
+[1] &quot;0&quot;
+
+$pubsub_patterns
+[1] &quot;0&quot;
+
+$latest_fork_usec
+[1] &quot;0&quot;
+
+$migrate_cached_sockets
+[1] &quot;0&quot;
+
+$role
+[1] &quot;master&quot;
+
+$connected_slaves
+[1] &quot;0&quot;
+
+$master_repl_offset
+[1] &quot;0&quot;
+
+$repl_backlog_active
+[1] &quot;0&quot;
+
+$repl_backlog_size
+[1] &quot;1048576&quot;
+
+$repl_backlog_first_byte_offset
+[1] &quot;0&quot;
+
+$repl_backlog_histlen
+[1] &quot;0&quot;
+
+$used_cpu_sys
+[1] &quot;0.00&quot;
+
+$used_cpu_user
+[1] &quot;0.00&quot;
+
+$used_cpu_sys_children
+[1] &quot;0.00&quot;
+
+$used_cpu_user_children
+[1] &quot;0.00&quot;
+
+$cluster_enabled
+[1] &quot;0&quot;
+
+$db0
+[1] &quot;keys=7&quot;    &quot;expires=0&quot; &quot;avg_ttl=0&quot;
+
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>redis_info</li><li>parse_info</li><li>redis_version</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

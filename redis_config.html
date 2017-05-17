@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>redis_config. redux 1.0.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">redux 1.0.0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Redis configuration</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>redis_config(..., config&nbsp;=&nbsp;list(...))</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>...</dt>
+      <dd>See Details</dd>
+      <dt>config</dt>
+      <dd>A list of options, to use in place of <code>...</code></dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Create a set of valid Redis configuration options.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Valid arguments here are:</p>
+  
+      <p><dl></p>
+  
+      <p><dt><code>url</code></dt><dd>The URL for the Redis server.  See examples.
+(default: Look up environment variable <code>REDIS_URL</code> or
+<code>NULL</code>).</dd></p>
+  
+      <p><dt><code>host</code></dt><dd>The hostname of the Redis server. (default:
+<code>127.0.0.1</code>).</dd></p>
+  
+      <p><dt><code>port</code></dt><dd>The port of the Redis server. (default: 6379).</dd></p>
+  
+      <p><dt><code>path</code></dt><dd>The path for a Unix socket if connecting that way.</dd></p>
+  
+      <p><dt><code>password</code></dt><dd>The Redis password (for use with
+<code>AUTH</code>).  This will be stored in <em>plain text</em> as part of
+the Redis object.  (default: <code>NULL</code>).</dd></p>
+  
+      <p><dt><code>db</code></dt><dd>The Redis database number to use (for use with
+<code>SELECT</code>.  Do not use in a redis clustering context.
+(default: <code>NULL</code>; i.e., don't switch).</dd></p>
+  
+      <p></dl></p>
+  
+      <p>The way that configuration options are resolved follows the design
+for redis-rb very closely.</p>
+  
+      <p><ol>
+<li>First, look up (and parse if found) the <code>REDIS_URL</code>
+environment variable and override defaults with that.</p>
+  
+      <p></li>
+<li>Any arguments given (<code>host</code>, <code>port</code>,
+<code>password</code>, <code>db</code>) override values inferred from the url
+or defaults.</p>
+  
+      <p></li>
+<li>If <code>path</code> is given, that overrides the
+<code>host</code>/<code>port</code> settings and a socket connection will be
+used.
+</li>
+</ol></p>
+  
+      <p></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'># default config:
+redis_config()
+</div>
+<div class='output'>Redis configuration:
+  - url: redis://127.0.0.1:6379
+  - scheme: redis
+  - host: 127.0.0.1
+  - port: 6379
+  - path: 
+  - password: 
+  - db: 
+</div>
+<div class='input'>
+# set values
+redis_config(host = &quot;myhost&quot;)
+</div>
+<div class='output'>Redis configuration:
+  - url: redis://myhost:6379
+  - scheme: redis
+  - host: myhost
+  - port: 6379
+  - path: 
+  - password: 
+  - db: 
+</div>
+<div class='input'>
+# url settings:
+redis_config(url = &quot;redis://:p4ssw0rd@myhost:32000/2&quot;)
+</div>
+<div class='output'>Redis configuration:
+  - url: redis://:p4ssw0rd@myhost:32000/2
+  - scheme: redis
+  - host: myhost
+  - port: 32000
+  - path: 
+  - password: p4ssw0rd
+  - db: 2
+</div>
+<div class='input'>
+# override url settings:
+redis_config(url = &quot;redis://myhost:32000&quot;, port = 31000)
+</div>
+<div class='output'>Redis configuration:
+  - url: redis://myhost:32000
+  - scheme: redis
+  - host: myhost
+  - port: 31000
+  - path: 
+  - password: 
+  - db: 
+</div>
+<div class='input'>redis_config(url = &quot;redis://myhost:32000&quot;, path = &quot;/tmp/redis.conf&quot;)
+</div>
+<div class='output'>Redis configuration:
+  - url: redis://myhost:32000
+  - scheme: unix
+  - host: 
+  - port: 
+  - path: /tmp/redis.conf
+  - password: 
+  - db: 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>redis_config</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

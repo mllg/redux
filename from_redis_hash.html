@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>from_redis_hash. redux 1.0.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">redux 1.0.0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Convert Redis hash</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>from_redis_hash(con, key, fields&nbsp;=&nbsp;NULL, f&nbsp;=&nbsp;as.character, missing&nbsp;=&nbsp;NA_character_)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>con</dt>
+      <dd>A Redis connection object</dd>
+      <dt>key</dt>
+      <dd>key of the hash</dd>
+      <dt>fields</dt>
+      <dd>Optional vector of fields (if absent, all fields are
+retrieved via <code>HGETALL</code>.</dd>
+      <dt>f</dt>
+      <dd>Function to apply to the <code>list</code> of values retrieved
+as a single set.  To apply element-wise, this will need to be
+run via something like <code>Vectorize</code>.</dd>
+      <dt>missing</dt>
+      <dd>What to substitute into the returned vector for
+missing elements.  By default an NA will be added.  A
+<code>stop</code> expression is OK and will only be evaluated if
+values are missing.</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Convert a Redis hash to a character vector or list.  This tries to
+bridge the gap between the way Redis returns hashes and the way
+that they are nice to work with in R, but keeping all conversions
+very explicit.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>if (redux::redis_available()) {
+  # Using a random key so we don&#39;t overwrite anything in your database:
+  key &lt;- paste0(&quot;redux::&quot;, paste(sample(letters, 15), collapse = &quot;&quot;))
+  r &lt;- redux::hiredis()
+  r$HSET(key, &quot;a&quot;, &quot;apple&quot;)
+  r$HSET(key, &quot;b&quot;, &quot;banana&quot;)
+  r$HSET(key, &quot;c&quot;, &quot;carrot&quot;)
+
+  # Now we have a hash with three elements:
+  r$HGETALL(key)
+
+  # Ew, that&#39;s not very nice.  This is nicer:
+  redux::from_redis_hash(r, key)
+
+  # If one of the elements was not a string, then that would not
+  # have worked, but you can always leave as a list:
+  redux::from_redis_hash(r, key, f = identity)
+
+  # To get just some elements:
+  redux::from_redis_hash(r, key, c(&quot;a&quot;, &quot;c&quot;))
+
+  # And if some are not present:
+  redux::from_redis_hash(r, key, c(&quot;a&quot;, &quot;x&quot;))
+  redux::from_redis_hash(r, key, c(&quot;a&quot;, &quot;z&quot;), missing = &quot;zebra&quot;)
+
+  r$DEL(key)
+}
+</div>
+<div class='output'>[1] 1
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>from_redis_hash</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
